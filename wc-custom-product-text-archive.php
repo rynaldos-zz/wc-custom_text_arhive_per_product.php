@@ -21,7 +21,7 @@
 
 function rs_product_custom_field() {
  $args = array(
- 'id' => 'custom_text_field',
+ 'id' => 'rs_woo_custom_text_field',
  'label' => __( 'Custom text', 'woocommerce' ),
  'class' => 'rs-custom-field',
  'desc_tip' => true,
@@ -37,8 +37,8 @@ add_action( 'woocommerce_product_options_general_product_data', 'rs_product_cust
 
 function rs_save_custom_field( $post_id ) {
  $product = wc_get_product( $post_id );
- $title = isset( $_POST['custom_text_field'] ) ? $_POST['custom_text_field'] : '';
- $product->update_meta_data( 'custom_text_field', sanitize_text_field( $title ) );
+ $title = isset( $_POST['rs_woo_custom_text_field'] ) ? $_POST['rs_woo_custom_text_field'] : '';
+ $product->update_meta_data( 'rs_woo_custom_text_field', sanitize_text_field( $title ) );
  $product->save();
 }
 add_action( 'woocommerce_process_product_meta', 'rs_save_custom_field' );
@@ -51,7 +51,7 @@ add_action( 'woocommerce_after_shop_loop_item', 'rs_show_free_shipping_loop', 5 
 function rs_show_free_shipping_loop() {
      global $post;
      $product = wc_get_product( $post->ID );
-     $title = $product->get_meta( 'custom_text_field' );
+     $title = $product->get_meta( 'rs_woo_custom_text_field' );
  if( $title ) {
  // Only display our field if we've got a value for the field title
  printf(
